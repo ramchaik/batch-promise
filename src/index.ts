@@ -1,13 +1,4 @@
-type AllSettledResp = {
-  status: 'fulfilled' | 'rejected';
-  value?: Record<string, any>;
-  reason?: string;
-};
-
-type Promisable<T> = T | Promise<T>;
-
-type success = [];
-type error = [];
+import { AllSettledResp, error, Promisable, success } from './types';
 
 const batchPromises = (
   batchSize: number,
