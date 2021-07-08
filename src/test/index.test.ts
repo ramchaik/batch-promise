@@ -1,12 +1,14 @@
-import batchPromises from '../index';
+import { batchPromises } from '../batchPromises';
 
 describe('#batchPromises', () => {
   test('all promises succeed', async () => {
     const batchSize = 3;
     const arr = [1, 2, 3, 4, 5];
 
-    const [success, error] = await batchPromises(batchSize, arr, (ele) =>
-      Promise.resolve(ele)
+    const [success, error] = await batchPromises(
+      batchSize,
+      arr,
+      (ele: number) => Promise.resolve(ele)
     );
 
     expect(success.length).toBe(arr.length);
@@ -17,8 +19,10 @@ describe('#batchPromises', () => {
     const batchSize = 3;
     const arr = [1, 2, 3, 4, 5];
 
-    const [success, error] = await batchPromises(batchSize, arr, (ele) =>
-      Promise.reject(ele)
+    const [success, error] = await batchPromises(
+      batchSize,
+      arr,
+      (ele: number) => Promise.reject(ele)
     );
 
     expect(success.length).toBe(0);
@@ -31,10 +35,14 @@ describe('#batchPromises', () => {
     const failCount = 3;
     const passCount = arr.length - failCount;
 
-    const [success, error] = await batchPromises(batchSize, arr, (ele) => {
-      if (ele <= failCount) return Promise.reject(ele);
-      return Promise.resolve(ele);
-    });
+    const [success, error] = await batchPromises(
+      batchSize,
+      arr,
+      (ele: number) => {
+        if (ele <= failCount) return Promise.reject(ele);
+        return Promise.resolve(ele);
+      }
+    );
 
     expect(success.length).toBe(passCount);
     expect(error.length).toBe(failCount);

@@ -11,7 +11,7 @@ npm i @vsr.common/batch-promises
 
 async/await way
 ```javascript
-import batchPromises from '@vsr.common/batch-promises';
+import { batchPromises } from '@vsr.common/batch-promises';
 
 const arr = [1, 2, 3, 4, 5];
 
@@ -22,7 +22,7 @@ const [success, error] = await batchPromises(2, arr, (ele) =>
 
 Promise way
 ```javascript
-import batchPromises from '@vsr.common/batch-promises';
+const { batchPromises } = require('@vsr.common/batch-promises');
 
 const arr = [1, 2, 3, 4, 5];
 
