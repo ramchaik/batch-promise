@@ -1,5 +1,5 @@
 {
-  "name": "batch-promise",
+  "name": "@vsr.common/batch-promises",
   "version": "1.0.0",
   "description": "A utility to batch promises",
   "main": "dist/cjs/index.js",
