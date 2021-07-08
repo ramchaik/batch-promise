@@ -1,0 +1,16 @@
+{
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/**"],
+  "verbose": true,
+  "colours": true,
+  "execMap": {
+    "js": "node --harmony",
+    "ts": "ts-node"
+  },
+  "events": {},
+  "watch": ["src/"],
+  "env": {
+    "NODE_ENV": "dev"
+  },
+  "ext": "ts,js"
+}
