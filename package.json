@@ -12,7 +12,8 @@
     "format": "eslint src/**/*.ts --fix",
     "test": "jest",
     "release": "standard-version",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "publish": "npm publish --access public"
   },
   "keywords": [],
   "author": "Vaibhav Singh <0vaibhavsingh0@gmail.com>",
