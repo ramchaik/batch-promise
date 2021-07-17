@@ -4,15 +4,15 @@ import { AllSettledResp, Error, Promisable, Success } from '../types';
  * @typedef {[]} Success - list of success responses
  * @typedef {[]} Error - list of error responses
  * @typedef {[Success, Error]} BatchResponse - response of batchPromises
- */ 
+ */
 
 /**
  * Batches promises to groups and executes the groups
- * 
+ *
  * @example
  * // returns [[1,2,3], []]
  * batchPromises(2, [1,2,3], (i) => Promise.resolve(i));
- * 
+ *
  * @async
  * @param {number} batchSize - size of the batch
  * @param {Promisable<unknown[]>} collection - list of items
@@ -21,9 +21,9 @@ import { AllSettledResp, Error, Promisable, Success } from '../types';
  */
 export const batchPromises = (
   batchSize: number,
-  collection: Promisable<unknown[]>,
-  callback: (item: unknown) => Promisable<unknown>
-): Promise<[Success, Error] | unknown[]> =>
+  collection: Promisable<any[]>,
+  callback: (item: any) => Promisable<any>
+): Promise<[Success, Error]> =>
   Promise.resolve(collection).then((arr) =>
     arr
       .map((_, i) => (i % batchSize ? [] : arr.slice(i, i + batchSize)))
@@ -53,8 +53,8 @@ export const batchPromises = (
             )
       )
       .reduce(
-        (chain, work: Promisable<any>) => chain.then(work),
-        Promise.resolve([])
+        (chain, work) => chain.then(work),
+        Promise.resolve([[], []] as [Success, Error])
       )
   );
 
