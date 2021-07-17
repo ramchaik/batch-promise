@@ -7,7 +7,7 @@ import { AllSettledResp, Error, Promisable, Success } from '../types';
  */
 
 /**
- * Batches promises to groups and executes the groups
+ * Batches promises to groups and then executes each group 
  *
  * @example
  * // returns [[1,2,3], []]
