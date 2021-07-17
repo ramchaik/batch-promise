@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ramchaik/batch-promise/compare/v1.1.0...v1.2.0) (2021-07-17)
+
+
+### Features
+
+* **ci:** add publish script ([39d8ed6](https://github.com/ramchaik/batch-promise/commit/39d8ed60f9c24fd8038956b4f45ff0088aa91859))
+* update types ([a5924ba](https://github.com/ramchaik/batch-promise/commit/a5924ba8bc47c4eef63ef7ae033b12abae1cee0d))
+* update types and add doc ([90925fd](https://github.com/ramchaik/batch-promise/commit/90925fd4e960561358ba64e5bc6e055d6b9f0064))
+
 ## [1.1.0](https://github.com/ramchaik/batch-promise/compare/v1.0.2...v1.1.0) (2021-07-08)
 
 
