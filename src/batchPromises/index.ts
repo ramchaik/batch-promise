@@ -1,8 +1,8 @@
 import { AllSettledResp, Error, Promisable, Success } from '../types';
 
 /**
- * @typedef {[]} Success - list of success responses
- * @typedef {[]} Error - list of error responses
+ * @typedef {Array<any>} Success - list of success responses
+ * @typedef {Array<any>} Error - list of error responses
  * @typedef {[Success, Error]} BatchResponse - response of batchPromises
  */
 
