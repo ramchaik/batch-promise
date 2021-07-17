@@ -1,8 +1,8 @@
-export type AllSettledResp = {
+export type AllSettledResp<T> = {
   status: 'fulfilled' | 'rejected';
-  value?: Record<string, any>;
+  value?: T;
   reason?: string;
 };
 export type Promisable<T> = T | Promise<T>;
-export type success = [];
-export type error = [];
+export type Success = unknown[];
+export type Error = unknown[];

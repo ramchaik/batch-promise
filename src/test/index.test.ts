@@ -1,6 +1,6 @@
 import { batchPromises } from '../batchPromises';
 
-describe('#batchPromises', () => {
+describe('batchPromises()', () => {
   test('all promises succeed', async () => {
     const batchSize = 3;
     const arr = [1, 2, 3, 4, 5];
@@ -10,6 +10,7 @@ describe('#batchPromises', () => {
       arr,
       (ele: number) => Promise.resolve(ele)
     );
+    
 
     expect(success.length).toBe(arr.length);
     expect(error.length).toBe(0);
