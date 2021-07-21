@@ -7,7 +7,7 @@ import { AllSettledResp, Error, Promisable, Success } from '../types';
  */
 
 /**
- * Batches promises to groups and then executes each group 
+ * Batches promises to groups and then executes each group
  *
  * @example
  * // returns [[1,2,3], []]
@@ -30,7 +30,7 @@ export const batchPromises = (
       .filter((group) => group.length)
       .map(
         (group): ((res: [Success, Error]) => Promise<[Success, Error]>) =>
-          (res: [Success, Error]) =>
+          ([success, error]: [Success, Error] = [[], []]) =>
             Promise.allSettled(group.map(callback)).then(
               (r: AllSettledResp<unknown>[]) => {
                 const fulfilledPromises = r
@@ -41,14 +41,12 @@ export const batchPromises = (
                   .filter((r) => r.status === 'rejected')
                   .map((r) => r.reason);
 
-                if (!res.length) {
-                  return [fulfilledPromises, rejectedPromises];
-                }
-
-                return [
-                  [...res[0], ...fulfilledPromises],
-                  [...res[1], ...rejectedPromises],
-                ];
+                return !Array.isArray(success) && !Array.isArray(error)
+                  ? [fulfilledPromises, rejectedPromises]
+                  : [
+                      [...success, ...fulfilledPromises],
+                      [...error, ...rejectedPromises],
+                    ];
               }
             )
       )
