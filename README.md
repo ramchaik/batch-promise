@@ -14,8 +14,8 @@ async/await way
 import { batchPromises } from '@vsr.common/batch-promises';
 
 const arr = [1, 2, 3, 4, 5];
-
-const [success, error] = await batchPromises(2, arr, (ele) =>
+const batchSize = 2;
+const [success, error] = await batchPromises(batchSize, arr, (ele) =>
   Promise.resolve(ele)
 );
 ```
@@ -25,8 +25,8 @@ Promise way
 const { batchPromises } = require('@vsr.common/batch-promises');
 
 const arr = [1, 2, 3, 4, 5];
-
-batchPromises(2, arr, (ele) =>
+const batchSize = 2;
+batchPromises(batchSize, arr, (ele) =>
   Promise.resolve(ele)
 ).then(([success, error]) => {
   // do your thing!
