@@ -1,7 +1,7 @@
-import { batchPromises } from '../batchPromises';
+import { batchPromises } from "../batchPromises";
 
-describe('batchPromises()', () => {
-  test('all promises succeed', async () => {
+describe("batchPromises()", () => {
+  test("all promises succeed", async () => {
     const batchSize = 3;
     const arr = [1, 2, 3, 4, 5];
 
@@ -10,13 +10,12 @@ describe('batchPromises()', () => {
       arr,
       (ele: number) => Promise.resolve(ele)
     );
-    
 
     expect(success.length).toBe(arr.length);
     expect(error.length).toBe(0);
   });
 
-  test('all promises fail', async () => {
+  test("all promises fail", async () => {
     const batchSize = 3;
     const arr = [1, 2, 3, 4, 5];
 
@@ -30,7 +29,7 @@ describe('batchPromises()', () => {
     expect(error.length).toBe(arr.length);
   });
 
-  test('some promises fail and others pass', async () => {
+  test("some promises fail and others pass", async () => {
     const batchSize = 3;
     const arr = [1, 2, 3, 4, 5];
     const failCount = 3;

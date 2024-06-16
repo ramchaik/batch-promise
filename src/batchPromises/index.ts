@@ -1,4 +1,4 @@
-import { AllSettledResp, Error, Promisable, Success } from '../types';
+import { AllSettledResp, Error, Promisable, Success } from "../types";
 
 /**
  * @typedef {Array<any>} Success - list of success responses
@@ -24,36 +24,36 @@ export const batchPromises = (
   collection: Promisable<any[]>,
   callback: (item: any) => Promisable<any>
 ): Promise<[Success, Error]> =>
-  Promise.resolve(collection).then((arr) =>
-    arr
-      .map((_, i) => (i % batchSize ? [] : arr.slice(i, i + batchSize)))
-      .filter((group) => group.length)
-      .map(
-        (group): ((res: [Success, Error]) => Promise<[Success, Error]>) =>
-          ([success, error]: [Success, Error] = [[], []]) =>
-            Promise.allSettled(group.map(callback)).then(
-              (r: AllSettledResp<unknown>[]) => {
-                const fulfilledPromises = r
-                  .filter((r) => r.status === 'fulfilled')
-                  .map((r) => r.value);
+  Promise.resolve(collection).then(async (arr) => {
+    const groups: any[][] = [];
+    const success: Success = [];
+    const error: Error = [];
 
-                const rejectedPromises = r
-                  .filter((r) => r.status === 'rejected')
-                  .map((r) => r.reason);
+    // Grouping items into batches
+    for (let i = 0; i < arr.length; i += batchSize) {
+      const endIndex = Math.min(i + batchSize, arr.length);
+      groups.push(arr.slice(i, endIndex));
+    }
 
-                return !Array.isArray(success) && !Array.isArray(error)
-                  ? [fulfilledPromises, rejectedPromises]
-                  : [
-                      [...success, ...fulfilledPromises],
-                      [...error, ...rejectedPromises],
-                    ];
-              }
-            )
-      )
-      .reduce(
-        (chain, work) => chain.then(work),
-        Promise.resolve([[], []] as [Success, Error])
-      )
-  );
+    // Processing each batch
+    groups.forEach(async (group) => {
+      if (group.length > 0) {
+        const results: AllSettledResp<unknown>[] = await Promise.allSettled(
+          group.map(callback)
+        );
+
+        // Separating fulfilled and rejected promises
+        results.forEach((result) => {
+          if (result.status === "fulfilled") {
+            success.push(result.value);
+          } else if (result.status === "rejected") {
+            error.push(result.reason);
+          }
+        });
+      }
+    });
+
+    return [success, error];
+  });
 
 export default batchPromises;
